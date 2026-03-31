@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=Kalam:wght@400;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #17171f;
+    --border: #2a2a3a;
+    --accent1: #ff3c5f;
+    --accent2: #ffdd00;
+    --accent3: #00e5ff;
+    --accent4: #b76aff;
+    --text: #f0f0f5;
+    --muted: #7a7a9a;
+    --green: #00e096;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #0a0a0f 100%);
+    padding: 60px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% -20%, rgba(183,106,255,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,60,95,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(0,229,255,0.1) 0%, transparent 50%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(183,106,255,0.15);
+    border: 1px solid rgba(183,106,255,0.4);
+    color: var(--accent4);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 100px);
+    line-height: 0.9;
+    letter-spacing: 3px;
+    position: relative;
+    background: linear-gradient(135deg, #fff 0%, #b76aff 40%, #ff3c5f 70%, #ffdd00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 12px;
+    position: relative;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;
+  }
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: rgba(17,17,24,0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-inner {
+    display: flex;
+    gap: 4px;
+    padding: 10px 16px;
+    min-width: max-content;
+  }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: rgba(255,255,255,0.07);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .nav-btn.active { color: var(--accent2); border-color: rgba(255,221,0,0.3); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+  .section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  /* ── SECTION HEADER ── */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .sec-num {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+  .sec-emoji { font-size: 22px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p, .card li {
+    font-size: 13px;
+    color: #c0c0d8;
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 18px; }
+  .card li { margin-bottom: 5px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media(max-width:640px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  /* ── PILL ── */
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin: 2px 2px 6px;
+    letter-spacing: 0.5px;
+  }
+  .pill-red { background: rgba(255,60,95,0.15); color: var(--accent1); border: 1px solid rgba(255,60,95,0.3); }
+  .pill-yellow { background: rgba(255,221,0,0.12); color: var(--accent2); border: 1px solid rgba(255,221,0,0.3); }
+  .pill-blue { background: rgba(0,229,255,0.1); color: var(--accent3); border: 1px solid rgba(0,229,255,0.25); }
+  .pill-purple { background: rgba(183,106,255,0.12); color: var(--accent4); border: 1px solid rgba(183,106,255,0.3); }
+  .pill-green { background: rgba(0,224,150,0.1); color: var(--green); border: 1px solid rgba(0,224,150,0.25); }
+
+  /* ── CHARACTER CARDS ── */
+  .char-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .char-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .char-avatar {
+    font-size: 42px;
+    margin-bottom: 12px;
+  }
+  .char-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  .char-role {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .char-catchphrase {
+    background: rgba(255,255,255,0.04);
+    border-left: 3px solid;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    margin: 12px 0;
+    line-height: 1.5;
+  }
+
+  /* ── CALENDAR ── */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .cal-day-header {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 6px 0;
+  }
+  .cal-day {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 6px;
+    min-height: 80px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .cal-day:hover { border-color: var(--accent4); transform: scale(1.02); }
+  .cal-day.empty { background: transparent; border-color: transparent; }
+  .cal-day.post { border-left: 2px solid; }
+  .cal-day-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .cal-day-content {
+    font-size: 9.5px;
+    line-height: 1.4;
+    color: #9090b0;
+  }
+  .cal-day-type {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  /* ── GANTT ── */
+  .gantt-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .gantt-label {
+    width: 140px;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    color: var(--text);
+  }
+  .gantt-track {
+    flex: 1;
+    height: 28px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .gantt-bar {
+    position: absolute;
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .gantt-weeks {
+    display: flex;
+    margin-left: 152px;
+    margin-bottom: 6px;
+  }
+  .gantt-week-label {
+    flex: 1;
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* ── REEL FORMAT ── */
+  .reel-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .reel-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    opacity: 0.2;
+    float: right;
+    margin-left: 10px;
+  }
+  .reel-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--accent2);
+  }
+  .reel-example {
+    background: rgba(255,221,0,0.05);
+    border: 1px dashed rgba(255,221,0,0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #b0b0c8;
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* ── PILLAR ── */
+  .pillar {
+    border-radius: 20px;
+    padding: 26px;
+    margin-bottom: 16px;
+    border: 1px solid;
+  }
+  .pillar-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .pillar-sub {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .angle-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    color: #c0c0d8;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .angle-item::before { content: '→'; opacity: 0.5; flex-shrink: 0; }
+
+  /* ── TAGLINE ── */
+  .tagline-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .tagline-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--accent1);
+    opacity: 0.4;
+    flex-shrink: 0;
+    width: 30px;
+  }
+  .tagline-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+  .tagline-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── BRAND COLORS ── */
+  .color-swatch {
+    height: 70px;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-end;
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(0,0,0,0.7);
+  }
+
+  /* ── GROWTH ITEMS ── */
+  .growth-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .growth-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+  }
+  .growth-content h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .growth-content p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── BONUS ── */
+  .roadmap-step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .roadmap-step::after {
+    content: '';
+    position: absolute;
+    left: 19px; top: 40px;
+    width: 2px;
+    height: calc(100% + 10px);
+    background: linear-gradient(to bottom, var(--border), transparent);
+  }
+  .roadmap-step:last-child::after { display: none; }
+  .roadmap-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .roadmap-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .roadmap-content p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* ── TABS CONTENT ── */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── HOOK VISUAL ── */
+  .hook-step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .hook-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    width: 40px;
+    flex-shrink: 0;
+  }
+  .hook-content h4 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+  .hook-content p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚡ Full Strategy Playbook</div>
+  <h1>CREATORWAADI</h1>
+  <p class="hero-sub">The internet's most chaotic fictional universe for creators. Strategy Playbook v1.0</p>
+  <div class="hero-tags">
+    <span class="tag">🇮🇳 India-first</span>
+    <span class="tag">Tier 1 & 2</span>
+    <span class="tag">Age 15–35</span>
+    <span class="tag">Instagram-native</span>
+    <span class="tag">Satire + Sitcom</span>
+    <span class="tag">Viral IP</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('brand')">🧠 Brand</button>
+    <button class="nav-btn" onclick="showSection('pillars')">🧱 Pillars</button>
+    <button class="nav-btn" onclick="showSection('characters')">🎭 Characters</button>
+    <button class="nav-btn" onclick="showSection('formats')">📺 Formats</button>
+    <button class="nav-btn" onclick="showSection('identity')">🎨 Identity</button>
+    <button class="nav-btn" onclick="showSection('reels')">🔥 Viral Reels</button>
+    <button class="nav-btn" onclick="showSection('calendar')">📅 Calendar</button>
+    <button class="nav-btn" onclick="showSection('gantt')">📊 Gantt</button>
+    <button class="nav-btn" onclick="showSection('growth')">🚀 Growth</button>
+    <button class="nav-btn" onclick="showSection('bonus')">💡 Bonus</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════════════════════════ 1. BRAND ════════════════════════ -->
+<div id="brand" class="tab-content active">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(255,60,95,0.15);color:var(--accent1);">1</div>
+    <div>
+      <div class="sec-title">🧠 BRAND POSITIONING</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(255,60,95,0.3);">
+    <div class="card-title" style="color:var(--accent1);">📌 What Creatorwaadi Stands For</div>
+    <p>Creatorwaadi is a <strong>fictional universe</strong> — imagine a chaotic mohalla where every type of Indian creator lives, breathes, and embarrasses themselves. It's the internet holding up a mirror to creator culture and laughing loudly. Not a "tips for creators" page, not an aggregator — a <strong>full IP with its own lore, language, and citizens</strong>.</p>
+    <br>
+    <p>The page believes: <strong>"Creator life banana bahut easy lagta hai outsider ko. Andar ki baat? Pure paagalpan ki duniya hai."</strong></p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent2);">🎙️ Tone of Voice</div>
+      <div>
+        <span class="pill pill-red">Sharply Satirical</span>
+        <span class="pill pill-yellow">Desi Humor</span>
+        <span class="pill pill-blue">Gen Z slang</span>
+        <span class="pill pill-purple">Exaggerated realism</span>
+        <span class="pill pill-green">Self-aware chaos</span>
+      </div>
+      <p>Think: AIB's sharpness + Tanmay Bhat's self-deprecation + your group chat's unhinged commentary. English-Hindi mix (Hinglish). Never preachy. Always punching at culture, not individuals.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent3);">🎯 Target Audience</div>
+      <ul>
+        <li><strong>Primary:</strong> Aspiring creators (15–24), small creators 1K–50K followers</li>
+        <li><strong>Secondary:</strong> Audience of creators (25–35) who consume creator content</li>
+        <li><strong>Tertiary:</strong> Brand marketers, agency folks who deal with influencers</li>
+        <li>Tier 1 cities: Mumbai, Delhi, Bangalore + Tier 2: Lucknow, Jaipur, Indore, Surat</li>
+        <li>Instagram-native, meme-fluent, algorithm-anxious</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent4);">🆚 Unique Positioning vs Existing Content</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--muted);font-size:12px;margin-bottom:8px;font-weight:600;">WHAT EXISTS NOW</p>
+        <ul>
+          <li>Creator tips & how-to content</li>
+          <li>Motivational "I got 1M followers" videos</li>
+          <li>Brand collab announcements</li>
+          <li>Trend-chasing content farms</li>
+          <li>Cringe compilations without context</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent1);font-size:12px;margin-bottom:8px;font-weight:600;">WHAT CREATORWAADI DOES</p>
+        <ul>
+          <li>A <em>universe</em> with recurring characters & plot</li>
+          <li>Satire that creators share because it's painfully true</li>
+          <li>Inside-joke culture only "residents" understand</li>
+          <li>Lore that builds over time (like a sitcom)</li>
+          <li>Makes the audience feel like they're "in" on it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 2. PILLARS ════════════════════════ -->
+<div id="pillars" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(0,229,255,0.12);color:var(--accent3);">2</div>
+    <div class="sec-title">🧱 CONTENT PILLARS</div>
+  </div>
+
+  <div class="pillar" style="background:rgba(255,60,95,0.06);border-color:rgba(255,60,95,0.25);">
+    <div class="pillar-title" style="color:var(--accent1);">PILLAR 1: CREATOR CHAOS / KALESH</div>
+    <div class="pillar-sub" style="color:var(--accent1);">The drama, the breakdowns, the unhinged decisions — 40% of content</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:14px;">Everything that goes wrong in creator life — from algorithm tantrums to brand deal nightmares. This is the loudest, most shareable pillar. It's the pillar that makes creators say "bhai yeh toh mere saath hua hai."</p>
+    <div class="angle-item">Brand asks for "just 5 changes" after 3 rounds of approval — show the 47th revision email</div>
+    <div class="angle-item">Creator's WiFi cuts out at the exact moment of a live stream peak</div>
+    <div class="angle-item">The group chat where creators vent about brands vs what they post publicly</div>
+    <div class="angle-item">Algorithm shows your reel to 200 people, 150 of whom are your own followers</div>
+    <div class="angle-item">The chaos of last-minute product integration into an unrelated video</div>
+    <br>
+    <span class="pill pill-red">🔁 Format: "Weekly Waadi Bulletin" (fake news style)</span>
+    <span class="pill pill-red">🔁 Format: "Kalesh Report" (breaking news parody)</span>
+    <span class="pill pill-red">🔁 Format: "Creator Court" (mock trial of brand decisions)</span>
+  </div>
+
+  <div class="pillar" style="background:rgba(255,221,0,0.05);border-color:rgba(255,221,0,0.2);">
+    <div class="pillar-title" style="color:var(--accent2);">PILLAR 2: REALITY VS EXPECTATION</div>
+    <div class="pillar-sub" style="color:var(--accent2);">The gap between the Instagram version and the truth — 35% of content</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:14px;">Exposing the carefully curated facade. This pillar is the most relatable — audiences who ARE creators or WATCH creators will both relate. It's shareable because it validates what people already suspect.</p>
+    <div class="angle-item">"Aesthetic travel vlog setup" vs actual cramped hotel bathroom with ring light</div>
+    <div class="angle-item">"Just woke up" reel vs the 90-minute hair and lighting setup that preceded it</div>
+    <div class="angle-item">Brand gifting unboxing vs opening a box of stuff the creator will never use</div>
+    <div class="angle-item">Creator's "honest review" vs what they actually think vs what the contract says</div>
+    <div class="angle-item">The "I'm just a normal person" aesthetic vs the 14-person production crew off-camera</div>
+    <br>
+    <span class="pill pill-yellow">🔁 Format: "Waadi Exposed" (split screen reels)</span>
+    <span class="pill pill-yellow">🔁 Format: "Behind the Feed" (POV mockumentary style)</span>
+    <span class="pill pill-yellow">🔁 Format: "Translation Service" (what they said vs what they meant)</span>
+  </div>
+
+  <div class="pillar" style="background:rgba(183,106,255,0.06);border-color:rgba(183,106,255,0.2);">
+    <div class="pillar-title" style="color:var(--accent4);">PILLAR 3: POV / DAILY CREATOR LIFE</div>
+    <div class="pillar-sub" style="color:var(--accent4);">Immersive, character-driven slices of Waadi life — 25% of content</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:14px;">This is where the universe-building happens. Episodic, character-driven content that makes followers feel like they're residents of Creatorwaadi. This pillar creates the "binge" behavior — people want to know what happened next.</p>
+    <div class="angle-item">POV: You're new to Creatorwaadi and trying to figure out the rules</div>
+    <div class="angle-item">A day in the life of Papadum Sharma (the delusional food blogger character)</div>
+    <div class="angle-item">What happens in Creatorwaadi at 3am (when all the "authentic" posts get scheduled)</div>
+    <div class="angle-item">The Waadi's unofficial hierarchy — who sits where in the café</div>
+    <div class="angle-item">Creatorwaadi election: who becomes the "Brand Deal President"</div>
+    <br>
+    <span class="pill pill-purple">🔁 Format: "Inside Creatorwaadi Ep.X" (episodic series)</span>
+    <span class="pill pill-purple">🔁 Format: "Waadi Diaries" (fake vlog entry style)</span>
+    <span class="pill pill-purple">🔁 Format: "Resident Spotlight" (character-focused reels)</span>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 3. CHARACTERS ════════════════════════ -->
+<div id="characters" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(183,106,255,0.15);color:var(--accent4);">3</div>
+    <div class="sec-title">🎭 RECURRING CHARACTERS</div>
+  </div>
+
+  <!-- Char 1 -->
+  <div class="char-card">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ff3c5f,#ff6b6b);"></div>
+    <div class="char-avatar">🤳</div>
+    <div class="char-name" style="color:var(--accent1);">VISHWAS VLOGGER</div>
+    <div class="char-role" style="color:var(--accent1);">The Delusional Lifestyle Creator</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:12px;">Has 4,200 followers but behaves like he has 4.2 million. Sends "collab proposals" to Virat Kohli. Posts about his "brand" partnerships which are just barter deals for samosas. Genuinely believes he's India's next MrBeast. Has a "PR team" (his cousin who has a Canva subscription).</p>
+    <div class="char-catchphrase" style="border-color:var(--accent1);">"Bhai, I'm building something big. You won't understand my vision right now." / "Mera next collab toh tum log ko shock kar dega." / Signs off every story with "Stay blessed, stay real 🙏✌️"</div>
+    <div>
+      <span class="pill pill-red">Delusion Humor</span>
+      <span class="pill pill-red">Cringe-comedy</span>
+      <span class="pill pill-red">Self-importance satire</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;"><strong>Content angle:</strong> His DMs to brands, his "media kit" (a Word doc with Clipart), his reaction when real influencers don't follow back.</p>
+  </div>
+
+  <!-- Char 2 -->
+  <div class="char-card">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ffdd00,#ffa500);"></div>
+    <div class="char-avatar">📸</div>
+    <div class="char-name" style="color:var(--accent2);">NIKKI AESTHETIC</div>
+    <div class="char-role" style="color:var(--accent2);">The Fake-Authenticity Queen</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:12px;">Every post is "candid" but took 3 hours to set up. Her apartment has one extremely photogenic corner and the rest is pure chaos. Posts "no filter" selfies with 6 filters. Her captions say "just a girl being her authentic self" and have been workshopped by 4 friends. Preaches mental health on Instagram, blocks anyone who asks basic questions.</p>
+    <div class="char-catchphrase" style="border-color:var(--accent2);">"This is so me, I can't." / "Okay but the lighting today?? Unreal." / "Genuinely couldn't be bothered to edit this." (posted at 11:47pm after editing for 2 hours)</div>
+    <div>
+      <span class="pill pill-yellow">Irony Humor</span>
+      <span class="pill pill-yellow">Relatability trap comedy</span>
+      <span class="pill pill-yellow">Performance of authenticity</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;"><strong>Content angle:</strong> Behind-the-scenes of her "effortless" photos, her ring light tan lines, choosing the "authentic" caption from a list of 12 options.</p>
+  </div>
+
+  <!-- Char 3 -->
+  <div class="char-card">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00e5ff,#0080ff);"></div>
+    <div class="char-avatar">📊</div>
+    <div class="char-name" style="color:var(--accent3);">DATA DEEPAK</div>
+    <div class="char-role" style="color:var(--accent3);">The Algorithm Obsessive</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:12px;">Posts content purely based on what the algorithm wants. Has 17 spreadsheets tracking engagement rates by hour, day, emoji placement, and font color. Has never posted anything he actually wanted to — "the data doesn't support it." Currently A/B testing two versions of his own face for thumbnails. Refers to his audience as "the cohort." In a constant state of existential crisis when analytics dip.</p>
+    <div class="char-catchphrase" style="border-color:var(--accent3);">"The data is very clear on this." / "Bhai engagement rate 0.3% gir gayi — yeh crisis hai." / "I don't post for myself, I post for the algorithm." (said without irony)</div>
+    <div>
+      <span class="pill pill-blue">Tech-bro satire</span>
+      <span class="pill pill-blue">Overthinking comedy</span>
+      <span class="pill pill-blue">Absurdist logic humor</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;"><strong>Content angle:</strong> His weekly "data debriefs", panicking when a reel does well for unknown reasons, trying to optimize his personality for reach.</p>
+  </div>
+
+  <!-- Char 4 -->
+  <div class="char-card">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#b76aff,#7c3aed);"></div>
+    <div class="char-avatar">🎤</div>
+    <div class="char-name" style="color:var(--accent4);">BRAND DEAL BUNTY</div>
+    <div class="char-role" style="color:var(--accent4);">The Sell-Anything Mercenary</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:12px;">Has promoted 47 brands in the last 3 months. Promotes a new VPN, a crypto app, and a diabetic protein supplement in the same week without any self-awareness. His "opinions" shift based on whoever's paying. Currently promoting a teeth whitening kit while simultaneously doing an ad for chai. Has a drawer full of products he's been paid to "love" and will never use. His audience of 200K has stopped believing anything he says but keep watching for the chaos.</p>
+    <div class="char-catchphrase" style="border-color:var(--accent4);">"Guys, honestly this product changed my life." (5th time this month) / "Use code BUNTY20 for 20% off!" / "I only promote things I genuinely use." (looking directly at a product he received yesterday)</div>
+    <div>
+      <span class="pill pill-purple">Sellout satire</span>
+      <span class="pill pill-purple">Brand deal absurdism</span>
+      <span class="pill pill-purple">Credibility collapse comedy</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;"><strong>Content angle:</strong> Fitting brand deals into completely unrelated content, his audience calling him out in comments, back-to-back contradictory promotions.</p>
+  </div>
+
+  <!-- Char 5 -->
+  <div class="char-card">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00e096,#00b4d8);"></div>
+    <div class="char-avatar">😮‍💨</div>
+    <div class="char-name" style="color:var(--green);">BURNOUT BANI</div>
+    <div class="char-role" style="color:var(--green);">The Perpetually Exhausted Creator</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:12px;">Has been "taking a break" for 8 months but keeps posting. Announced her "mental health hiatus" in a 45-minute video with brand deals in it. Says "I'm doing this for me now, not for numbers" while obsessively checking analytics at 3am. Has posted 12 "comeback" videos. Her most authentic content is accidentally filmed when she's too tired to perform. The audience's favorite character because everyone has felt this way.</p>
+    <div class="char-catchphrase" style="border-color:var(--green);">"Guys I'm back. For real this time." / "I just want to create content that matters." (posts flat lay of coffee) / "Taking care of my mental health 🌿" (immediately goes live for 3 hours)</div>
+    <div>
+      <span class="pill pill-green">Burnout satire</span>
+      <span class="pill pill-green">Parasocial irony</span>
+      <span class="pill pill-green">Relatable vulnerability comedy</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;"><strong>Content angle:</strong> Her comeback announcements, the difference between her announced hiatus vs actual hiatus, her "authentic" posts vs their engagement numbers.</p>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 4. FORMATS ════════════════════════ -->
+<div id="formats" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(0,229,255,0.1);color:var(--accent3);">4</div>
+    <div class="sec-title">📺 CONTENT FORMAT SYSTEM</div>
+  </div>
+
+  <div class="card" style="border-color:rgba(255,60,95,0.3);">
+    <div class="card-title" style="color:var(--accent1);">🎬 Master Reel Structure</div>
+    <div class="grid2">
+      <div>
+        <div class="hook-step">
+          <div class="hook-num" style="color:var(--accent1);">1</div>
+          <div class="hook-content">
+            <h4>HOOK (0–2 sec)</h4>
+            <p>The most painful/funniest thing first. No intro, no context. Drop the audience INTO the chaos. Text on screen before audio kicks in. Example: "POV: Brand ask kiya 'just one small change'" + visual of 47 revision emails.</p>
+          </div>
+        </div>
+        <div class="hook-step">
+          <div class="hook-num" style="color:var(--accent2);">2</div>
+          <div class="hook-content">
+            <h4>CHAOS ESCALATION (2–20 sec)</h4>
+            <p>Build the situation. Fast cuts. Multiple reactions. The character responding to increasingly absurd developments. Internal monologue text overlays. Use jump cuts to show time passing/things getting worse.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="hook-step">
+          <div class="hook-num" style="color:var(--accent4);">3</div>
+          <div class="hook-content">
+            <h4>PUNCHLINE (20–28 sec)</h4>
+            <p>The unexpected twist, the devastating punchline, or the painfully relatable conclusion. Should make people pause the reel, screenshot, or rewatch. Often a deadpan reaction or a single line of text.</p>
+          </div>
+        </div>
+        <div class="hook-step">
+          <div class="hook-num" style="color:var(--green);">4</div>
+          <div class="hook-content">
+            <h4>CTA (28–30 sec)</h4>
+            <p>Never "follow for more." Instead use universe CTAs: "Aur kya hota hai Creatorwaadi mein? 👇" / "Tag the Vishwas in your life 😭" / "Ek baar sab Bunty ho jaate hain" — makes sharing feel personal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent2);">✂️ Editing Style</div>
+      <ul>
+        <li>Fast cuts every 1.5–2 seconds during chaos section</li>
+        <li>Freeze-frame + text on punchline moments</li>
+        <li>Meme inserts (Paaji face, distracted boyfriend, etc.) used sparingly</li>
+        <li>Subtitles always on — large, bold, slightly off-center</li>
+        <li>Sound design: exaggerated SFX (Windows error sound, notification pings)</li>
+        <li>Occasional "record scratch" pause for comedic effect</li>
+        <li>Color grade: slightly desaturated reality vs vivid "fake" world</li>
+        <li>Zoom punch-ins on reaction faces</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent3);">📺 Episodic Series Formats</div>
+      <ul>
+        <li><strong>Inside Creatorwaadi Ep.X</strong> — Universe lore drops, new storylines</li>
+        <li><strong>Waadi Weekly Bulletin</strong> — Fake news report on creator events</li>
+        <li><strong>Character Origin Stories</strong> — How each resident arrived in Waadi</li>
+        <li><strong>The Waadi Elections</strong> — Seasonal event arc (every quarter)</li>
+        <li><strong>Waadi vs The Algorithm</strong> — Ongoing saga series</li>
+        <li><strong>New Resident</strong> — Introducing new character archetypes as they emerge in culture</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent4);">🔄 Loop & Rebinge Architecture</div>
+    <p style="margin-bottom:10px;">Create content that rewards re-watching:</p>
+    <ul>
+      <li>Hide Easter eggs in backgrounds (e.g., Bunty's brand deal shelf, Data Deepak's spreadsheet on screen)</li>
+      <li>Episodes reference previous episodes ("Remember when Vishwas tried to collab with Amul?") — FOMO for new viewers</li>
+      <li>Use the same set/location consistently — Creatorwaadi Café becomes a recognizable setting</li>
+      <li>Continuity gags: Data Deepak always wearing same shirt, Bunty always with a different product</li>
+      <li>Comments section becomes part of the universe — reply in character voice</li>
+      <li>Cliffhanger CTAs: "Part 2 aayega kal" creates appointment viewing</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 5. IDENTITY ════════════════════════ -->
+<div id="identity" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(255,221,0,0.12);color:var(--accent2);">5</div>
+    <div class="sec-title">🎨 BRAND IDENTITY</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent2);">🎨 Color Palette</div>
+    <div class="grid3" style="gap:10px;margin-top:10px;">
+      <div class="color-swatch" style="background:#FF3C5F;color:white;font-size:10px;">
+        <div><div style="font-weight:700;">Waadi Red</div><div style="opacity:0.7;">#FF3C5F · Primary</div></div>
+      </div>
+      <div class="color-swatch" style="background:#FFDD00;">
+        <div><div style="font-weight:700;">Algorithm Gold</div><div style="opacity:0.6;">#FFDD00 · Accent</div></div>
+      </div>
+      <div class="color-swatch" style="background:#111118;border:1px solid #333;color:white;font-size:10px;">
+        <div><div style="font-weight:700;">Dark Waadi</div><div style="opacity:0.7;">#111118 · Background</div></div>
+      </div>
+      <div class="color-swatch" style="background:#00E5FF;color:#000;font-size:10px;">
+        <div><div style="font-weight:700;">Viral Blue</div><div style="opacity:0.6;">#00E5FF · Tech/Data</div></div>
+      </div>
+      <div class="color-swatch" style="background:#B76AFF;color:white;font-size:10px;">
+        <div><div style="font-weight:700;">Creator Purple</div><div style="opacity:0.7;">#B76AFF · Universe</div></div>
+      </div>
+      <div class="color-swatch" style="background:#FFFFFF;color:#000;font-size:10px;">
+        <div><div style="font-weight:700;">Clean White</div><div style="opacity:0.6;">#FFFFFF · Text</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent1);">🔤 Typography & Logo Direction</div>
+      <ul>
+        <li><strong>Display Font:</strong> Bold, condensed, slightly imperfect — like a newspaper headline but chaotic. Think Bebas Neue + hand-drawn distress overlay</li>
+        <li><strong>Body/Subtitles:</strong> Clean sans-serif, slightly rounded (like Poppins Bold) for easy reading on mobile</li>
+        <li><strong>Logo:</strong> Wordmark "CREATORWAADI" in condensed caps + a small icon of a messy mohalla skyline or camera within a mohalla gate</li>
+        <li><strong>Logo feeling:</strong> Newspaper parody meets street signage — official but slightly broken</li>
+        <li><strong>App icon version:</strong> Just "CW" monogram in red on black</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent3);">😂 Meme & Subtitle Style</div>
+      <ul>
+        <li><strong>Subtitle style:</strong> Large bold white with black stroke, placed off-center or at 70% height (not typical bottom placement)</li>
+        <li><strong>Meme templates:</strong> Always use Waadi-specific templates over generic internet memes — builds brand recognition</li>
+        <li><strong>Text overlays:</strong> Mix of all-caps scream text + lowercase whisper text for comedic contrast</li>
+        <li><strong>Watermark:</strong> Subtle "Creatorwaadi 📍" in corner — present but not intrusive</li>
+        <li><strong>Emoji use:</strong> Deliberate, never excessive. 😭💀✨🙏 are the Waadi's native emojis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent4);">✍️ 5 Tagline Options</div>
+    <div class="tagline-item">
+      <div class="tagline-num">01</div>
+      <div>
+        <div class="tagline-text">SABKA CONTENT, SABKI LIFE</div>
+        <div class="tagline-note">Inclusive, community-first — the whole creator world lives here</div>
+      </div>
+    </div>
+    <div class="tagline-item">
+      <div class="tagline-num">02</div>
+      <div>
+        <div class="tagline-text">INDIA'S MOST UNFILTERED MOHALLA</div>
+        <div class="tagline-note">Plays on the universe concept, uses "mohalla" for cultural grounding</div>
+      </div>
+    </div>
+    <div class="tagline-item">
+      <div class="tagline-num">03</div>
+      <div>
+        <div class="tagline-text">JAHAN ALGORITHMS ROTE HAIN</div>
+        <div class="tagline-note">Poetic, funny, immediately understood by any creator</div>
+      </div>
+    </div>
+    <div class="tagline-item">
+      <div class="tagline-num">04</div>
+      <div>
+        <div class="tagline-text">THE DARK SIDE OF THE REEL</div>
+        <div class="tagline-note">English wordplay on Pink Floyd — appeals to slightly older, ironic audience</div>
+      </div>
+    </div>
+    <div class="tagline-item">
+      <div class="tagline-num">05</div>
+      <div>
+        <div class="tagline-text">CONTENT BANATE HO? WELCOME HOME.</div>
+        <div class="tagline-note">Direct, warm, community invitation — strong for profile bio</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 6. VIRAL REELS ════════════════════════ -->
+<div id="reels" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(255,60,95,0.15);color:var(--accent1);">6</div>
+    <div class="sec-title">🔥 10 VIRAL REEL FORMATS</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">01</div>
+    <div class="reel-title">POV: YOU'RE A CREATOR</div>
+    <p style="font-size:12px;color:#c0c0d8;">Camera IS the creator — viewer is placed inside the Waadi experience. Creates maximum identification and shareability.</p>
+    <div class="reel-example">💡 "POV: You just posted your best reel ever and Instagram shows it to 140 people, 80 of whom are your relatives." Cut to: phone notifications that are exclusively WhatsApp from "Mummy" saying "beta kya tha yeh?"</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">02</div>
+    <div class="reel-title">REALITY vs EXPECTATION (SPLIT FORMAT)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Left screen: the polished, aesthetic version. Right screen: what actually happened. The wider the gap, the funnier.</p>
+    <div class="reel-example">💡 LEFT: Nikki Aesthetic's "just woke up, feeling grateful 🌿" reel. RIGHT: 47 takes, 2 ring lights, hair and makeup since 6am, actual caption brainstorm with 5 friends on a Google Doc titled "authentic moment."</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">03</div>
+    <div class="reel-title">CREATOR VS BRAND (NEGOTIATION MOCKERY)</div>
+    <p style="font-size:12px;color:#c0c0d8;">The back-and-forth between creator and brand email/DMs. Escalating absurdity. Bunty's specialty format.</p>
+    <div class="reel-example">💡 Brand DM: "Hi! We'd love to collab! We can offer ₹500 and full creative freedom!" / Bunty internally: "500 rupees. FIVE HUNDRED." / Bunty response typed: "Absolutely thrilled to partner with your amazing brand 🙌" — cut to Bunty crying while holding the product.</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">04</div>
+    <div class="reel-title">INTERNAL MONOLOGUE (THE HONEST CREATOR BRAIN)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Voice-over of what the creator is actually thinking vs what they're saying/doing on camera. Fast-cut between external and internal.</p>
+    <div class="reel-example">💡 External: Vishwas confidently on camera: "Guys this is going to be my most authentic video ever." Internal: "If this doesn't hit 10K views I'm deleting everything and becoming a CA like Mom wanted."</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">05</div>
+    <div class="reel-title">WAADI WEEKLY BULLETIN (FAKE NEWS)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Breaking news format — anchor desk, ticker tape, "BREAKING" chyron. Satirizes real creator culture events as news.</p>
+    <div class="reel-example">💡 "BREAKING: Local creator's reel reaches 1M views. Creator reportedly has no idea why. Algorithm remains silent. Markets react. Data Deepak in crisis. More at 9." Ticker: "INSTAGRAM ENGAGEMENT DOWN 0.2% — VISHWAS VLOGGER ANNOUNCES PIVOT TO YOUTUBE"</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">06</div>
+    <div class="reel-title">WAADI COURT (MOCK TRIAL)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Creator practices put on trial by the Waadi. Judge, prosecution, defense. Absurd evidence. Ludicrous verdict.</p>
+    <div class="reel-example">💡 Case: "Vishwas Vlogger vs The Algorithm — Creator charges Instagram with 'deliberate underperformance of a genuinely good reel.'" Evidence: analytics screenshot. Verdict: "Algorithm found not guilty. Creator asked to post between 7–9pm on Tuesdays."</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">07</div>
+    <div class="reel-title">CREATOR GLOSSARY (TRANSLATION SERVICE)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Decode creator language. What they post vs what it means. Dictionary-style entries build recurring format identity.</p>
+    <div class="reel-example">💡 "Creator Dictionary: 'Taking a break for my mental health' (n.) — A 2-week pause in content, followed by a 45-minute return video with 2 brand deals." / "Authentic (adj.) — Content that took less than 4 hours to make look effortless."</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">08</div>
+    <div class="reel-title">NEW RESIDENT INTRO (CHARACTER LAUNCH)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Introduce new Waadi characters as if they're new arrivals. Lore-building content that generates comments from invested followers.</p>
+    <div class="reel-example">💡 "New resident alert 🚨 Introducing SHORTS SIDDHARTH — moved to Creatorwaadi after his 60-second YouTube video got more views than his 45-minute documentary. Currently in therapy." Character profile card design + arrival "orientation video."</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">09</div>
+    <div class="reel-title">BRAND DEAL BINGO (AUDIENCE PARTICIPATION)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Bingo card format — check off which creator tropes appeared this week. Highly shareable, generates saves and stories shares.</p>
+    <div class="reel-example">💡 "This week in Creatorwaadi BINGO ✅ VPN ad ✅ 'Use code for 20% off' ✅ 'Only promoting things I use' (3rd time) ✅ 'I'm doing this for the community' ✅ Ring light visible in sunglasses reflection." "FULL HOUSE? Tag a creator."</div>
+  </div>
+
+  <div class="reel-card">
+    <div class="reel-num">10</div>
+    <div class="reel-title">BEHIND THE WAADI (META-CONTENT)</div>
+    <p style="font-size:12px;color:#c0c0d8;">Treat Creatorwaadi itself as a content operation. Satirize the making of the page — meta, self-aware, builds parasocial investment in the page itself.</p>
+    <div class="reel-example">💡 "Inside Creatorwaadi HQ: Our 'content team' deciding what Vishwas does next." Cut to: chaotic Google Meet. "Budget discussion." Cut to: zero rupee balance. "Distribution strategy." Cut to: praying. High engagement because it humanizes the page.</div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 7. CALENDAR ════════════════════════ -->
+<div id="calendar" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(0,224,150,0.1);color:var(--green);">7</div>
+    <div class="sec-title">📅 APRIL CONTENT CALENDAR</div>
+  </div>
+  <div class="card" style="margin-bottom:16px;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:11px;">
+      <span><span class="pill pill-red" style="margin:0 4px 0 0;">■</span>Chaos/Kalesh</span>
+      <span><span class="pill pill-yellow" style="margin:0 4px 0 0;">■</span>Reality vs Exp</span>
+      <span><span class="pill pill-purple" style="margin:0 4px 0 0;">■</span>POV/Daily Life</span>
+      <span><span class="pill pill-green" style="margin:0 4px 0 0;">■</span>Character</span>
+      <span><span class="pill pill-blue" style="margin:0 4px 0 0;">■</span>Viral Format</span>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;">
+  <div style="min-width:560px;">
+  <div class="cal-grid">
+    <div class="cal-day-header">TUE</div>
+    <div class="cal-day-header">WED</div>
+    <div class="cal-day-header">THU</div>
+    <div class="cal-day-header">FRI</div>
+    <div class="cal-day-header">SAT</div>
+    <div class="cal-day-header">SUN</div>
+    <div class="cal-day-header">MON</div>
+
+    <!-- Week 1 -->
+    <div class="cal-day post" style="border-left-color:var(--accent4);">
+      <div class="cal-day-num">Apr 1</div>
+      <div class="cal-day-type" style="color:var(--accent4);">LAUNCH 🎉</div>
+      <div class="cal-day-content">Inside Creatorwaadi Ep.1 — Welcome to the Waadi. Universe intro reel. Introduce all 5 characters in 30 sec.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent1);">
+      <div class="cal-day-num">Apr 2</div>
+      <div class="cal-day-type" style="color:var(--accent1);">CHAOS</div>
+      <div class="cal-day-content">Creator vs Brand email chain. Vishwas gets a ₹500 collab offer. His internal spiral.</div>
+    </div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day post" style="border-left-color:var(--accent2);">
+      <div class="cal-day-num">Apr 4</div>
+      <div class="cal-day-type" style="color:var(--accent2);">REALITY</div>
+      <div class="cal-day-content">Nikki Aesthetic's "candid" photo — the real behind-the-scenes. 3hrs for a 3-second "effortless" moment.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--green);">
+      <div class="cal-day-num">Apr 5</div>
+      <div class="cal-day-type" style="color:var(--green);">CHARACTER</div>
+      <div class="cal-day-content">Data Deepak's weekly analytics debrief. 17 spreadsheets. 0.3% engagement drop. Full meltdown.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent3);">
+      <div class="cal-day-num">Apr 6</div>
+      <div class="cal-day-type" style="color:var(--accent3);">VIRAL</div>
+      <div class="cal-day-content">Creator Glossary Ep.1 — "Authentic", "On a break", "Community", "Collab". Translation service format.</div>
+    </div>
+    <div class="cal-day empty"></div>
+
+    <!-- Week 2 -->
+    <div class="cal-day post" style="border-left-color:var(--accent4);">
+      <div class="cal-day-num">Apr 8</div>
+      <div class="cal-day-type" style="color:var(--accent4);">POV</div>
+      <div class="cal-day-content">POV: Your reel goes viral but Instagram shows it to 200 people. Internal monologue of Vishwas.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent1);">
+      <div class="cal-day-num">Apr 9</div>
+      <div class="cal-day-type" style="color:var(--accent1);">CHAOS</div>
+      <div class="cal-day-content">Waadi Weekly Bulletin Ep.1. Breaking: Algorithm updated. Waadi in chaos. Deepak calls emergency meeting.</div>
+    </div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day post" style="border-left-color:var(--green);">
+      <div class="cal-day-num">Apr 11</div>
+      <div class="cal-day-type" style="color:var(--green);">CHARACTER</div>
+      <div class="cal-day-content">Bunty's 3 brand deals in one video. VPN + protein shake + teeth whitening. His audience's comments.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent2);">
+      <div class="cal-day-num">Apr 12</div>
+      <div class="cal-day-type" style="color:var(--accent2);">REALITY</div>
+      <div class="cal-day-content">Brand Deal BINGO card for the week. All boxes checked by Wednesday. Tag a Bunty in your life.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent4);">
+      <div class="cal-day-num">Apr 13</div>
+      <div class="cal-day-type" style="color:var(--accent4);">POV</div>
+      <div class="cal-day-content">Inside Creatorwaadi Ep.2 — Burnout Bani returns. Her 13th "I'm back for real" video. New character depth.</div>
+    </div>
+    <div class="cal-day empty"></div>
+
+    <!-- Week 3 -->
+    <div class="cal-day post" style="border-left-color:var(--accent1);">
+      <div class="cal-day-num">Apr 15</div>
+      <div class="cal-day-type" style="color:var(--accent1);">CHAOS</div>
+      <div class="cal-day-content">Creator Court: Vishwas vs Instagram. Algorithm charged with "deliberate underperformance." Absurd verdict.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent3);">
+      <div class="cal-day-num">Apr 16</div>
+      <div class="cal-day-type" style="color:var(--accent3);">VIRAL</div>
+      <div class="cal-day-content">Creator Internal Monologue — What Nikki says on camera vs what she's actually thinking. Fast cut format.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent2);">
+      <div class="cal-day-num">Apr 17</div>
+      <div class="cal-day-type" style="color:var(--accent2);">REALITY</div>
+      <div class="cal-day-content">Reality vs Expectation: Becoming a full-time creator. Instagram dream vs 3am deadline reality.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--green);">
+      <div class="cal-day-num">Apr 18</div>
+      <div class="cal-day-type" style="color:var(--green);">CHARACTER</div>
+      <div class="cal-day-content">Data Deepak optimizes his personality. A/B testing his own face for thumbnails. Results inconclusive.</div>
+    </div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day post" style="border-left-color:var(--accent4);">
+      <div class="cal-day-num">Apr 20</div>
+      <div class="cal-day-type" style="color:var(--accent4);">POV</div>
+      <div class="cal-day-content">POV: You're new to Creatorwaadi. Tour of the Waadi. Meeting each resident. Universe building reel.</div>
+    </div>
+    <div class="cal-day empty"></div>
+
+    <!-- Week 4 -->
+    <div class="cal-day post" style="border-left-color:var(--accent3);">
+      <div class="cal-day-num">Apr 22</div>
+      <div class="cal-day-type" style="color:var(--accent3);">VIRAL</div>
+      <div class="cal-day-content">Creator Glossary Ep.2 — "Brand Partnership", "Full creative freedom", "Organic content", "Just a quick ask."</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent1);">
+      <div class="cal-day-num">Apr 23</div>
+      <div class="cal-day-type" style="color:var(--accent1);">CHAOS</div>
+      <div class="cal-day-content">Waadi Weekly Bulletin Ep.2. Breaking: Bunty spotted promoting 4 competing brands same day. Residents react.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent2);">
+      <div class="cal-day-num">Apr 24</div>
+      <div class="cal-day-type" style="color:var(--accent2);">REALITY</div>
+      <div class="cal-day-content">The "effortless aesthetic apartment" — Nikki's photogenic corner vs the rest of her actual apartment. Before/after.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--green);">
+      <div class="cal-day-num">Apr 25</div>
+      <div class="cal-day-type" style="color:var(--green);">CHARACTER</div>
+      <div class="cal-day-content">Burnout Bani's mental health reel — has 2 brand deals. She's aware of the irony. Does it anyway.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent4);">
+      <div class="cal-day-num">Apr 26</div>
+      <div class="cal-day-type" style="color:var(--accent4);">POV</div>
+      <div class="cal-day-content">Inside Creatorwaadi Ep.3 — Waadi Election announcement. Who will be Brand Deal President? Community votes.</div>
+    </div>
+    <div class="cal-day empty"></div>
+
+    <!-- Week 5 -->
+    <div class="cal-day post" style="border-left-color:var(--accent1);">
+      <div class="cal-day-num">Apr 28</div>
+      <div class="cal-day-type" style="color:var(--accent1);">CHAOS</div>
+      <div class="cal-day-content">Vishwas sends collab proposal to Zomato, Swiggy, and accidentally — Swiggy's competitor on the same email.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent3);">
+      <div class="cal-day-num">Apr 29</div>
+      <div class="cal-day-type" style="color:var(--accent3);">VIRAL</div>
+      <div class="cal-day-content">Behind the Waadi — Meta content about making Creatorwaadi. Self-aware, funny, builds deeper loyalty.</div>
+    </div>
+    <div class="cal-day post" style="border-left-color:var(--accent4);">
+      <div class="cal-day-num">Apr 30</div>
+      <div class="cal-day-type" style="color:var(--accent4);">MONTH END</div>
+      <div class="cal-day-content">April Waadi Wrap. Best moments, top chaos, community shoutouts. Tease May storyline. Election results.</div>
+    </div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+  </div>
+  </div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:12px;text-align:center;">📌 Post times: Weekdays 7–9pm IST · Weekends 11am–1pm IST · Stories daily</p>
+</div>
+</div>
+
+<!-- ════════════════════════ 8. GANTT ════════════════════════ -->
+<div id="gantt" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(0,229,255,0.1);color:var(--accent3);">8</div>
+    <div class="sec-title">📊 GANTT CHART – APRIL EXECUTION</div>
+  </div>
+
+  <div class="card">
+    <div class="gantt-weeks">
+      <div class="gantt-week-label">Week 1<br><span style="opacity:0.5">Apr 1–7</span></div>
+      <div class="gantt-week-label">Week 2<br><span style="opacity:0.5">Apr 8–14</span></div>
+      <div class="gantt-week-label">Week 3<br><span style="opacity:0.5">Apr 15–21</span></div>
+      <div class="gantt-week-label">Week 4<br><span style="opacity:0.5">Apr 22–30</span></div>
+    </div>
+
+    <div class="gantt-row">
+      <div class="gantt-label">🎨 Branding Setup</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0;width:30%;background:rgba(183,106,255,0.7);color:white;">Logo + Colors</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">✍️ Script Writing</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0;width:75%;background:rgba(255,221,0,0.7);color:#111;">Ongoing scripting</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">📹 Batch Shooting</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0;width:20%;background:rgba(255,60,95,0.7);color:white;">Week 1 batch</div>
+        <div class="gantt-bar" style="left:25%;width:20%;background:rgba(255,60,95,0.6);color:white;">W2 batch</div>
+        <div class="gantt-bar" style="left:50%;width:20%;background:rgba(255,60,95,0.5);color:white;">W3 batch</div>
+        <div class="gantt-bar" style="left:75%;width:20%;background:rgba(255,60,95,0.4);color:white;">W4 batch</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">🎬 Editing</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:5%;width:90%;background:rgba(0,229,255,0.6);color:#111;">Continuous rolling edit</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">📱 Posting (5–6/wk)</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0;width:100%;background:rgba(0,224,150,0.6);color:#111;">5–6 posts/week all month</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">💬 Community Mgmt</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0;width:100%;background:rgba(183,106,255,0.4);color:white;">Reply in character, daily</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">📊 Analytics Review</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:20%;width:5%;background:rgba(255,221,0,0.8);color:#111;">W1</div>
+        <div class="gantt-bar" style="left:45%;width:5%;background:rgba(255,221,0,0.8);color:#111;">W2</div>
+        <div class="gantt-bar" style="left:70%;width:5%;background:rgba(255,221,0,0.8);color:#111;">W3</div>
+        <div class="gantt-bar" style="left:93%;width:5%;background:rgba(255,221,0,0.8);color:#111;">W4</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">🔄 Iteration</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:25%;width:75%;background:rgba(255,60,95,0.3);color:white;">Optimize based on data</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">🚀 Collab Outreach</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:50%;width:50%;background:rgba(0,229,255,0.4);color:#111;">Start after W2 traction</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent2);">⚡ Pre-Launch Checklist (March 25–31)</div>
+    <div class="grid2">
+      <ul>
+        <li>Finalize logo, bio, highlight covers</li>
+        <li>Shoot & edit first 6 reels (pre-load)</li>
+        <li>Set up character-consistent profile aesthetics</li>
+        <li>Write scripts for Week 1 & 2</li>
+      </ul>
+      <ul>
+        <li>Create content templates in CapCut / Premiere</li>
+        <li>Set up link-in-bio (Linktree or Beacons)</li>
+        <li>Draft 30 days of captions in advance</li>
+        <li>Create Waadi Bulletin episode template</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 9. GROWTH ════════════════════════ -->
+<div id="growth" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(255,60,95,0.15);color:var(--accent1);">9</div>
+    <div class="sec-title">🚀 GROWTH STRATEGY</div>
+  </div>
+
+  <div class="card" style="border-color:rgba(255,60,95,0.3);">
+    <div class="card-title" style="color:var(--accent1);">⏱️ The 2-Second Hook System</div>
+    <p style="font-size:13px;color:#c0c0d8;margin-bottom:14px;">Every reel must earn the watch in the first 2 seconds. Creatorwaadi uses 4 hook types in rotation:</p>
+    <div class="grid2">
+      <div class="angle-item"><strong>PAIN HOOK:</strong> Start with the most relatable creator pain point. "Brand ne 3am ko revision maanga." Instant recognition, instant watch.</div>
+      <div class="angle-item"><strong>ABSURDITY HOOK:</strong> Begin mid-chaos. Something so weird they have to watch to understand. "Data Deepak is A/B testing his face."</div>
+      <div class="angle-item"><strong>TEXT-FIRST HOOK:</strong> Bold text on screen before audio begins — captures silent scrollers. Text creates curiosity gap.</div>
+      <div class="angle-item"><strong>CHARACTER INTRO HOOK:</strong> "Vishwas Vlogger has an announcement" — invested followers auto-watch any character update.</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent2);">📌 Shares & Saves Strategy</div>
+      <ul>
+        <li><strong>Tag mechanic:</strong> Every CTA asks to "tag the [character] in your life" — converts viewers to amplifiers</li>
+        <li><strong>Save bait:</strong> Creator Glossary, Brand Deal BINGO, Reel Structure tips — content people save for reference</li>
+        <li><strong>Story share bait:</strong> Highly relatable 1-line text posts that scream "this is literally me"</li>
+        <li><strong>Screenshot moments:</strong> Design punchlines as standalone images — creates organic Twitter/WhatsApp sharing</li>
+        <li><strong>Controversy-adjacent:</strong> Post takes that creators will share to either agree loudly or argue — both drive reach</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent3);">📈 Trends vs Original Content</div>
+      <ul>
+        <li><strong>70% Original:</strong> Creatorwaadi universe content — this is the moat. Nobody else can do this.</li>
+        <li><strong>30% Trend-hijack:</strong> Slot Waadi characters into trending audio/formats</li>
+        <li><strong>Rule:</strong> Never use a trend without making it a Waadi citizen moment. "This trend, but it's Vishwas Vlogger doing it" — preserves IP while catching algorithm</li>
+        <li><strong>Timing:</strong> Jump on trends within 6–8 hours of peak. Post between 7–9pm for maximum initial velocity</li>
+        <li><strong>Never sacrifice character voice</strong> for a trend — Waadi identity > momentary reach</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent4);">🏷️ Hashtag + Caption Approach</div>
+    <div class="grid2">
+      <div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;">HASHTAG STRATEGY (15–20 per post)</p>
+        <ul>
+          <li>3 branded: #Creatorwaadi #WaadiLife #WaadiCitizens</li>
+          <li>5 niche: #IndianCreators #CreatorProblems #ContentCreatorIndia</li>
+          <li>5 broad: #IndianMemes #InstagramIndia #ContentCreator</li>
+          <li>3–4 trending (week-specific)</li>
+          <li>NEVER put hashtags in caption — first comment only</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;">CAPTION FORMULA</p>
+        <ul>
+          <li>Line 1: The punchline or the question (gets shown in feed)</li>
+          <li>Line 2–3: Expand the universe or the situation</li>
+          <li>Line 4: The CTA — always in Waadi voice, never generic</li>
+          <li>Never more than 4 lines visible before "more"</li>
+          <li>Use Waadi-specific phrases: "Waadi update", "Breaking from Creatorwaadi", "Residents, assemble"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--green);">🤝 Community Building: The Inside Joke Economy</div>
+    <ul>
+      <li><strong>Reply in character:</strong> When replying to comments, use character voice. Vishwas responding to his own post creates parasocial depth.</li>
+      <li><strong>Waadi Citizenship:</strong> Followers who engage heavily get "named" as Waadi residents in stories — creates massive loyalty and FOMO</li>
+      <li><strong>Inside jokes accumulate:</strong> Reference past episodes and moments. Long-term followers feel "in the know." Makes new viewers binge the archive.</li>
+      <li><strong>Ask the Waadi:</strong> Post polls, questions — "What should Vishwas do?" — turns audience into co-writers</li>
+      <li><strong>Comment section becomes universe:</strong> Pin the funniest comments, create recurring commenters who become "Waadi personalities"</li>
+      <li><strong>Monthly "Resident of the Month":</strong> Feature a top commenter/fan. Builds community ownership and word-of-mouth.</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════ 10. BONUS ════════════════════════ -->
+<div id="bonus" class="tab-content">
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num" style="background:rgba(255,221,0,0.12);color:var(--accent2);">10</div>
+    <div class="sec-title">💡 LONG-TERM IP ROADMAP</div>
+  </div>
+
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="border-color:var(--accent3);color:var(--accent3);">🌱</div>
+    <div class="roadmap-content">
+      <h4 style="color:var(--accent3);">PHASE 1: Build the Universe (Month 1–3)</h4>
+      <p>Establish all 5 characters with distinct voices. Create core Waadi lore (the café, the hierarchy, the rules). Hit 10K followers. Identify top-performing formats. Launch the "Waadi Citizens" community concept in comments. Start a WhatsApp/Telegram broadcast for super-fans: "Waadi Insider."</p>
+    </div>
+  </div>
+
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="border-color:var(--accent2);color:var(--accent2);">🔥</div>
+    <div class="roadmap-content">
+      <h4 style="color:var(--accent2);">PHASE 2: Creator Community (Month 3–6)</h4>
+      <p>Launch a private Discord/WhatsApp community: "Creatorwaadi Residents Only." Offer creator-to-creator networking, script feedback, collaboration matchmaking. This transforms the page from content to platform. Host monthly "Waadi Meets" — virtual hangouts. Merchandise first drop: T-shirts, mugs with character catchphrases ("Use code BUNTY20" ironic merch sells itself).</p>
+    </div>
+  </div>
+
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="border-color:var(--accent1);color:var(--accent1);">💰</div>
+    <div class="roadmap-content">
+      <h4 style="color:var(--accent1);">PHASE 3: Brand Collaborations (Month 4–8)</h4>
+      <p>Approach brands with the satirical angle as a feature, not a bug. Brands that are secure enough to be roasted GET the most authentic integration. Pitch: "Let Brand Deal Bunty accidentally promote you while complaining about brand deals." First targets: Zepto, Noise, Mivi, Razorpay, Internshala — brands that index high with creator audiences. Branded "Waadi Episodes" — brand funds a character-driven story with organic integration.</p>
+    </div>
+  </div>
+
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="border-color:var(--accent4);color:var(--accent4);">🎬</div>
+    <div class="roadmap-content">
+      <h4 style="color:var(--accent4);">PHASE 4: YouTube + Long-form IP (Month 6–12)</h4>
+      <p>Launch Creatorwaadi on YouTube as a proper short-form sitcom. 5–10 minute episodes. Higher production, multi-camera, scripted chaos. This is where the IP becomes a real media property. Pitch to OTTs (TVF-style): Creatorwaadi as a web series. YouTube also enables longer-format monetization: AdSense, channel memberships, Super Thanks.</p>
+    </div>
+  </div>
+
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="border-color:var(--green);color:var(--green);">🌐</div>
+    <div class="roadmap-content">
+      <h4 style="color:var(--green);">PHASE 5: Full IP Expansion (Year 2+)</h4>
+      <p>Creator education arm: "Waadi Academy" — courses taught in Waadi character voice (satirical but genuinely useful). Live events: "Creatorwaadi Fest" — an in-person experience where fans meet the characters, attend creator panels, buy merch. Licensing: Characters used by other brands for campaigns. The Waadi becomes India's first creator-culture IP — like what AIB was for sketch comedy, but as a universe.</p>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,rgba(183,106,255,0.1),rgba(255,60,95,0.1));border-color:rgba(183,106,255,0.3);">
+    <div class="card-title" style="color:var(--accent4);">💎 Monetization Stack (Full Picture)</div>
+    <div class="grid3" style="gap:10px;margin-top:4px;">
+      <div style="background:rgba(255,255,255,0.04);padding:14px;border-radius:10px;">
+        <div style="font-size:20px;margin-bottom:6px;">📦</div>
+        <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Merch</div>
+        <p style="font-size:11px;color:var(--muted);">Character catchphrase tees, mugs, phone cases. "Use code BUNTY20" — the ironic meta-merch that sells itself to creator audiences.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);padding:14px;border-radius:10px;">
+        <div style="font-size:20px;margin-bottom:6px;">🤝</div>
+        <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Brand Deals</div>
+        <p style="font-size:11px;color:var(--muted);">Character-native integrations. Brands pay to be featured in Waadi universe with satirical (but effective) placement.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);padding:14px;border-radius:10px;">
+        <div style="font-size:20px;margin-bottom:6px;">🎓</div>
+        <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Community + Courses</div>
+        <p style="font-size:11px;color:var(--muted);">Paid Discord membership. Creator courses taught by Waadi characters. "Data Deepak teaches analytics."</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
